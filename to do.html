@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>to do list</title>
+  <style>
+    * {
+      margin: 20px;
+      padding: 0px;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    .main {
+      max-width: 500px;
+      background-color: aqua;
+      text-align: center;
+      border-radius: 15px;
+    }
+
+    #input {
+      background-color: darkgray;
+      border-radius: 5px;
+    }
+
+    #button {
+      background-color: green;
+      width: 80px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main">
+    <h1>To Do List</h1>
+    <input id="input" type="text" placeholder="enter your task">
+    <button id="button">Add</button>
+    <ol type="1" id="list"></ol>
+  </div>
+
+  <script>
+    const input = document.querySelector('#input');
+    const btn = document.querySelector('#button');
+    const list = document.querySelector('#list');
+
+    btn.addEventListener('click', () => {
+      const li = document.createElement('li');
+
+      const check = document.createElement('input');
+      check.type = "checkbox";
+
+      const text = document.createTextNode(input.value);
+
+      const removebtn = document.createElement('button');
+      removebtn.innerText = "Remove";
+
+      removebtn.addEventListener('click', () => {
+        li.remove();
+      });
+
+      li.appendChild(check);
+      li.appendChild(text);
+      li.appendChild(removebtn);
+
+      list.appendChild(li);
+      input.value = "";
+    });
+  </script>
+
+</body>
+</html>
