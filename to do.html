@@ -10,8 +10,9 @@
       margin: 20px;
       padding: 0px;
       font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-     
+
     }
+
     body {
       background-color: cornflowerblue;
     }
@@ -35,9 +36,10 @@
       border-radius: 10px;
       color: rgb(15, 8, 9);
     }
-    footer{
+
+    footer {
       text-align: center;
-    
+
     }
   </style>
 </head>
@@ -52,29 +54,40 @@
   </div>
 
   <script>
-    const input =document.querySelector('#input');
-    const list= document.querySelector('#list');
-    let todolist =[];
+    const input = document.querySelector('#input');
+    const list = document.querySelector('#list');
+    let todolist = [];
 
-     const addLocal =(todo) =>{
-      return localStorage.setItem('todo data', JSON.stringify(todo));
+    const addLocal = (todo) => {
+      return localStorage.setItem('tododata', JSON.stringify(todo));
 
-     }
-     
+    }
+    const getTodo = () => {
+      return JSON.parse(localStorage.getItem('tododata'))|| [] ;
+    }; 
 
-    document.querySelector('#btn').addEventListener('click' , () => {
-       addList();
+    todolist = getTodo(); 
+    let newTodo = input.value.trim();
+    console.log(newTodo); 
+
+
+    document.querySelector('#btn').addEventListener('click', () => {
+      addList();
 
     })
-    addList = () =>{ 
-      addLocal(list.value);
-       const listElement =document.createElement("li");
-       listElement .innerHTML = input.value; 
-       list.append (listElement ); 
-    }
+    if(newTodo.length !== 0){
+      
+       addList = () => {
+      addLocal(todolist);
+      const listElement = document.createElement("li");
+      listElement.innerHTML = input.value;
+      list.append(listElement);
+    }}
+   
   </script>
   <footer>
     Made by Deepak
   </footer>
 </body>
+
 </html>
