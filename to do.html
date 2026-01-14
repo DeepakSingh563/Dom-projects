@@ -37,6 +37,15 @@
       color: rgb(27, 3, 7);
     }
 
+    .remove-btn {
+      background-color: beige;
+    }
+
+    .checkbox {
+      background-color: beige;
+    }
+
+
     footer {
       text-align: center;
 
@@ -56,34 +65,85 @@
   <script>
     const input = document.querySelector('#input');
     const list = document.querySelector('#list');
+    const btn = document.querySelector('#btn');
+
     let todolist = [];
 
     const addLocal = (todo) => {
-      return localStorage.setItem('tododata', JSON.stringify(todo));
+      localStorage.setItem('tododata', JSON.stringify(todo));
 
-    }
+    };
+
     const getTodo = () => {
-      return JSON.parse(localStorage.getItem('tododata'))|| [] ;
-    }; 
+      const data = JSON.parse(localStorage.getItem('tododata')) || [];
+      return data.map(item =>
+        typeof item === "string" ? { text: item, checked: false } : item
+      );
+    };
 
-    todolist = getTodo(); 
-    let newTodo = input.value.trim();
-    console.log(newTodo); 
+
+    const render = () => {
+      list.innerHTML = "";
+      todolist.forEach((item, index) => {
+        const li = document.createElement("li");
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = item.checked;
+
+        checkbox.addEventListener("change", () => {
+          todolist[index].checked = checkbox.checked;
+          addLocal(todolist);
+        });
+
+        const span = document.createElement("span");
+        span.textContent = item.text;
+
+        const removebtn = document.createElement('button');
+        removebtn.innerText = "Remove";
+        removebtn.className = "remove-btn";
+
+        removebtn.addEventListener('click', () => {
+          todolist.splice(index, 1);
+          addLocal(todolist);
+          render();
+        });
+
+        li.appendChild(checkbox);
+        li.appendChild(span);
+        li.appendChild(removebtn);
+        list.appendChild(li);
+      });
+    };
 
 
-    document.querySelector('#btn').addEventListener('click', () => {
-      addList();
+    todolist = getTodo();
+    render();
 
-    })
-    if(newTodo.length !== 0){
 
-       addList = () => {
+
+    btn.addEventListener('click', () => {
+
+
+      let newTodo = input.value.trim();
+      if (newTodo.length === 0) return;
+      const isDuplicate = todolist.some(
+        (todo) => todo.text.toLowerCase() === newTodo.toLowerCase()
+      );
+
+      if (isDuplicate) {
+        alert("Task Already exist");
+        input.value = "";
+        return;
+      }
+      todolist.push({ text: newTodo, checked: false });
       addLocal(todolist);
-      const listElement = document.createElement("li");
-      listElement.innerHTML = input.value;
-      list.append(listElement);
-    }}
-   
+      render();
+      input.value = "";
+    });
+
+
+
   </script>
   <footer>
     Made by Deepak
