@@ -5,61 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>to do list</title>
-  <style>
-    * {
-      margin: 20px;
-      padding: 0px;
-      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
-    }
-
-    body {
-      background-color: cornflowerblue;
-    }
-
-    .main {
-      max-width: 500px;
-      background-color: rgb(21, 116, 116);
-      text-align: center;
-      border-radius: 15px;
-    }
-
-    #input {
-      background-color: rgb(71, 54, 54);
-      border-radius: 5px;
-      color: black;
-    }
-
-    #btn {
-      background-color: rgb(132, 132, 134);
-      width: 80px;
-      border-radius: 10px;
-      color: rgb(27, 3, 7);
-    }
-
-    .remove-btn {
-      background-color: beige;
-    }
-
-    .checkbox {
-      background-color: beige;
-    }
-
-
-    footer {
-      text-align: center;
-
-    }
-  </style>
+  <link rel="stylesheet" href="todo.css">
 </head>
 
 <body>
-
+  <div class="page">
   <div class="main">
     <h1>To Do List</h1>
     <input id="input" type="text" placeholder="enter your task">
     <button id="btn">Add</button>
     <ol type="1" id="list"></ol>
+  </div>
   </div>
 
   <script>
